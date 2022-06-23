@@ -1,0 +1,3 @@
+interface MediaAudio {
+    playAudio(): void
+}
