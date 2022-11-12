@@ -2,7 +2,7 @@
 
 ## Rodando no Kubernets via helm
 
-helm install redis --set auth.password=testeRedisMentoria123 --set replica.replicaCount=2 --set image.repository=redis --set image.tag=7.0.5 my-repo/redis
+helm install redis --set auth.password=testeRedisMentoria123 --set replica.replicaCount=2 --set image.repository=redis --set image.tag=7.0.5 bitnami/redis
 
 
 ## Informações importantes

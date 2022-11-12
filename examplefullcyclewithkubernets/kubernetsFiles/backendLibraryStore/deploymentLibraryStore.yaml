@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: libraryStore-deployment
+  namespace: todo-api-breno
   labels:
     app.kubernetes.io/name: libraryStore-deployment
     app.kubernetes.io/version: {{ v0.1 | quote }}
