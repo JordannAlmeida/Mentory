@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "5NpNwRX0BG+pLca6T5HXXGgk0k240pp6UNBTFnYPHm82zY4Nic11+aw8JZ0sc+gupsQ0jVRrfSvMlpH6RGFuYw==",
+  "dgSpecHash": "U6bUbps3MpSAHGtBjgRmME4V4uNVLQbKwF2o0AN9iuaA4OifmsnlMfOVAG6nW4sFSJY+5E8xdD4MvtPbgTa9bA==",
   "success": true,
-  "projectFilePath": "C:\\DTI\\mentoria\\.NET\\exemploUsoClasseStartupDotNet6\\exampleUseStartupDotNet6\\WebApplication1\\ASPNETAPI_6_EXAMPLE_STARTUP.csproj",
+  "projectFilePath": "C:\\Users\\jorda\\Documents\\GitHub\\Mentory\\.NET\\exemploUsoClasseStartupDotNet6\\exampleUseStartupDotNet6\\WebApplication1\\ASPNETAPI_6_EXAMPLE_STARTUP.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\swashbuckle.aspnetcore\\6.3.1\\swashbuckle.aspnetcore.6.3.1.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.3.1\\swashbuckle.aspnetcore.swagger.6.3.1.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.3.1\\swashbuckle.aspnetcore.swaggergen.6.3.1.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.3.1\\swashbuckle.aspnetcore.swaggerui.6.3.1.nupkg.sha512"
+    "C:\\Users\\jorda\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\jorda\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\jorda\\.nuget\\packages\\swashbuckle.aspnetcore\\6.3.1\\swashbuckle.aspnetcore.6.3.1.nupkg.sha512",
+    "C:\\Users\\jorda\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.3.1\\swashbuckle.aspnetcore.swagger.6.3.1.nupkg.sha512",
+    "C:\\Users\\jorda\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.3.1\\swashbuckle.aspnetcore.swaggergen.6.3.1.nupkg.sha512",
+    "C:\\Users\\jorda\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.3.1\\swashbuckle.aspnetcore.swaggerui.6.3.1.nupkg.sha512"
   ],
   "logs": []
 }

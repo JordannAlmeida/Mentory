@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todobreno-deployment
+  labels:
+    app.kubernetes.io/name: todobreno
+    app.kubernetes.io/version: 'v0.1'
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: todobreno
+      app.kubernetes.io/version: 'v0.1'
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: todobreno
+        app.kubernetes.io/version: 'v0.1'
+    spec:
+      containers:
+      - name: todobreno-container
+        image: 'todobreno:latest'
+        imagePullPolicy: Never
+        env:
+        - name: portDatabase
+          value: '5435'
+        - name: database
+          value: 'postgres'
+        - name: hostDatabase
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: postgres-url
+        - name: userDatabase
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-user
+        - name: passDatabase
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-password
+        - name: urlRedis
+          valueFrom:
+            configMapKeyRef:
+              name: redis-url-config
+              key: redis-url
+        - name: portRedis
+          valueFrom:
+            configMapKeyRef:
+              name: redis-url-config
+              key: redis-port
+        - name: passRedis
+          valueFrom:
+            secretKeyRef:
+              name: redis
+              key: redis-password
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: '100m'
+            memory: '512Mi'
+      restartPolicy: 'Always'
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todobreno-service
+  labels:
+    app.kubernetes.io/name: todobreno-service
+    app.kubernetes.io/version: 'v0.1'
+spec:
+  selector:
+    app.kubernetes.io/name: todobreno
+    app.kubernetes.io/version: 'v0.1'
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+      nodePort: 30100

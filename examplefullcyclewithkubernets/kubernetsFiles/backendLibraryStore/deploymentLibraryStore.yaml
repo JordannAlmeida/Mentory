@@ -1,0 +1,129 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: libraryStore-deployment
+  labels:
+    app.kubernetes.io/name: libraryStore-deployment
+    app.kubernetes.io/version: {{ v0.1 | quote }}
+  
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: libraryStore
+      app.kubernetes.io/version: {{ v0.1 | quote }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: libraryStore
+        app.kubernetes.io/version: {{ v0.1 | quote }}
+    spec:
+      containers:
+      - name: libraryStore-container
+        image: 'librarystore:latest'
+        env:
+        - name: {{ $env.name }}
+          value: {{ $env.value | quote }}
+        {{- end}}
+        {{ range $secret := .Values.envSecrets }}
+        - name: {{ $secret.name }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ $secret.secretName }}
+              key: {{ $secret.secretKey }}
+        {{- end}}
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+        {{- if .Values.livenessProbe }}
+        livenessProbe:
+          initialDelaySeconds: {{.Values.livenessProbe.initialDelaySeconds | default 30}}
+          periodSeconds: {{.Values.livenessProbe.periodSeconds | default 30}}
+          httpGet:
+            path: {{.Values.livenessProbe.path | default "/health"}}
+            port: {{ .Values.containerPort }}
+        {{- end }}
+        {{- if .Values.readinessProbe }}
+        readinessProbe:
+          initialDelaySeconds: {{.Values.readinessProbe.initialDelaySeconds | default 30}}
+          periodSeconds: {{.Values.readinessProbe.periodSeconds | default 30}}
+          httpGet:
+            path: {{.Values.readinessProbe.path | default "/health"}}
+            port: {{ .Values.containerPort }}
+        {{- end }}
+        {{ range $volumeMount := .Values.volumeMounts }}
+        volumeMounts:
+        - name: {{ $volumeMount.name }}
+          mountPath: {{ $volumeMount.mountPath }}
+          readOnly: {{ $volumeMount.readOnly }}
+        {{- end }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+      restartPolicy: {{ .Values.restartPolicy }}
+      imagePullSecrets:
+        - name: {{ .Values.registry }}
+      {{ range $volume := .Values.volumes }}
+      volumes:
+          - name: {{ $volume.name }}
+            {{- if $volume.secretProviderClass }}
+            csi:
+              driver: secrets-store.csi.k8s.io
+              readOnly: true
+              volumeAttributes:
+                secretProviderClass: {{ $volume.secretProviderClass }}
+              nodePublishSecretRef:
+                name: {{ $volume.nodePublishSecretRef }}
+            {{- end }}
+      {{- end }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: libraryStore-service
+  
+  labels:
+    app.kubernetes.io/name: libraryStore-service
+    app.kubernetes.io/version: {{ v0.1 | quote }}
+spec:
+  selector:
+    app.kubernetes.io/name: libraryStore
+    app.kubernetes.io/version: {{ v0.1 | quote }}
+  type: {{ .Values.service.type }}
+  ports:
+    - name: libraryStore-port
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.containerPort }}
+
+---
+{{- if .Values.ingress -}}
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: libraryStore-ingress
+  annotations:
+    field.cattle.io/description: Ingressar em libraryStore
+  labels:
+    app.kubernetes.io/name: libraryStore
+    app.kubernetes.io/version: {{ v0.1 | quote }}
+  
+spec:
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - backend:
+          service:
+            port:
+              number: {{ .Values.service.port }}
+            name: libraryStore-ingress
+        path: {{ .Values.ingress.path }}
+        pathType: Prefix
+  tls:
+  - hosts:
+      - {{ .Values.ingress.host }}
+    secretName: {{ .Values.ingress.tlssecretname }}
+{{- end }}
+{{- end }}
