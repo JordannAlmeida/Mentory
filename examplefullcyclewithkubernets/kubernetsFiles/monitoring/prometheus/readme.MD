@@ -1,6 +1,54 @@
 ![](prometheus.png)
 
-## Rodando no Kubernets via helm
+## Rodando no Kubernets via [helm](https://github.com/prometheus-community/helm-charts)
+
+## Separados:
+add repo to helm:
+```console
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+
+Apply kube-state-metrics:
+```console
+helm install [RELEASE_NAME] prometheus-community/kube-state-metrics [flags]
+```
+Apply prometheus node exporter:
+```console
+helm install [RELEASE_NAME] prometheus-community/prometheus-node-exporter
+```
+
+Apply prometheus postgress exporter:
+```console
+helm install [RELEASE_NAME] prometheus-community/prometheus-postgres-exporter
+```
+
+Apply prometheus redis exporter:
+```console
+helm install [RELEASE_NAME] prometheus-community/prometheus-redis-exporter
+```
+
+Apply prometheus alert manager:
+```console
+helm install [RELEASE_NAME] prometheus-community/alertmanager
+```
+
+Apply prometheus:
+```console
+helm install [RELEASE_NAME] prometheus-community/prometheus -f values.yaml -f service1-alert.yaml -f service2-alert.yaml
+```
+To see configurations of prometheus:
+```console
+helm show values prometheus-community/prometheus
+```
+
+Add helm [grafana](https://github.com/grafana/helm-charts/tree/main/charts/grafana)
+
+
+## Helm com quase tudo que é necessário (sem exporters de postgres e redis):
+```console
+helm install [RELEASE_NAME] prometheus-community/kube-prometheus-stack
+```
 
 
 ## Informações importantes
@@ -13,7 +61,7 @@
 * Possui uma WebUI propria, mas e comumente utilizadoo com o **Grafana**;
 * Entradas das metricas sao organizadas em 2 atributos **Type** (Count: ...how many times x happened | Gauge: ...what`s the current value of <CPUUtilization, MemoryUtilization, Capacity Disk, etc> now | Histogram: ...how long or how big (e.g. resquest size) ) e **HELP** (descricao do que a metrica e)
 * Sua configuracao e feita por um arquivo de configuracao prometheus.yaml, o qual dizemos quais sao os targets e qual o intervalo de busca das metricas;
-* Os alertas do prometheus podem disparar diversos tipos de acoes, como envio de email, mensagem no slack, etc. Suas regras sao declaradas no arquivo de configuracao do prometheus;
+* Os alertas (AlertManager) do prometheus podem disparar diversos tipos de acoes, como envio de email, mensagem no slack, etc. Suas regras sao declaradas no arquivo de configuracao do prometheus;
 
 
 | Vantagens  | Desvantagens  |
