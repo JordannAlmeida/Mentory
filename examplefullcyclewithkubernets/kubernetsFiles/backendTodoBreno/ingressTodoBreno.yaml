@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: todobreno-ingress
-  namespace: todo-api-breno
+  
   annotations:
     field.cattle.io/description: Ingressar em todobreno
     nginx.ingress.kubernetes.io/rewrite-target: /

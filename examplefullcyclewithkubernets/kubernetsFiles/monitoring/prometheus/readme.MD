@@ -70,3 +70,28 @@ helm install [RELEASE_NAME] prometheus-community/kube-prometheus-stack
 | Funciona sem a dependencia de outros componentes  | Possui um numero limitado de metricas  |
 | Consegue trabalhar mesmo se outras partes da infraestrutura cairem  | A escolha do numero de metricas depende da capacidade do ambiente em que o prometheus esta rodando  |
 | Nao e caro e e facil de se aplicar  |  |
+
+## Importante
+O deploy do prometheus que faremos identifica que deve monitorar um servico se este possuir em metadata -> labels -> release: prometheus (no nosso exemplo seria fullprometheus - check em `kubectl get crd -> kubectl get prometheuses.monitoring.coreos.com -oyaml -> veja em serviceMonitorSelector -> matchLabels.
+
+## Como rodaremos:
+```console
+helm install -f prometheus-full-values.yaml fullprometheus prometheus-community/kube-prometheus-stack
+```
+onde prometheus-full-values.yaml foi obtido com o comando helm show values prometheus-community/kube-prometheus-stack > prometheus-full-values.yaml
+
+Para acessar o prometheus emm localhost:
+```console
+kubectl port-forward service/fullprometheus-kube-promet-prometheus 9090
+```
+
+Para rodar o exporter do postgres primeiro obtemos o arquivo de configuracao "prometheus-exporter-postgress-values"
+helm show values prometheus-community/prometheus-postgres-exporter > prometheus-exporter-postgress-values.yaml
+
+Depois iremos editar neste arquivo serviceMonitor->labels adicionando "release: fullprometheus" conforme vimos no topico **Importante**. Tambem vamos editar em config->datasource colocando as informacoes do nosso banco postegres
+
+```console
+helm install postgres-exporter prometheus-community/prometheus-postgres-exporter -f prometheus-exporter-postgress-values.yaml
+```
+
+## TODO: colocar experter do redis

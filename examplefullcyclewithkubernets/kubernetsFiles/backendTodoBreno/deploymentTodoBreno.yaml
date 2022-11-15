@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: todobreno-deployment
-  namespace: todo-api-breno
+  
   labels:
     app.kubernetes.io/name: todobreno
     app.kubernetes.io/version: 'v0.1'
@@ -70,7 +70,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: todobreno-service
-  namespace: todo-api-breno
+  
   labels:
     app.kubernetes.io/name: todobreno-service
     app.kubernetes.io/version: 'v0.1'
