@@ -1,0 +1,69 @@
+
+replicaCount: 1
+
+# Additional Environment variables
+env:
+- name: REDIS_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      key: redis-password
+      name: redis
+
+redisAddress: redis://10.107.172.227:6379
+
+service:
+  labels:
+    release: fullprometheus
+
+# deployment additional annotations and labels
+annotations: {}
+labels:
+  release: fullprometheus
+
+serviceMonitor:
+  # When set true then use a ServiceMonitor to configure scraping
+  enabled: true
+  multipleTarget: false
+  additionalMetricsRelabels:
+    release: fullprometheus
+
+## Custom PrometheusRules to be defined
+## The value is evaluated as a template, so, for example, the value can depend on .Release or .Chart
+## ref: https://github.com/coreos/prometheus-operator#customresourcedefinitions
+prometheusRule:
+  enabled: true
+  additionalLabels:
+    release: fullprometheus
+  rules:
+    ## These are just examples rules, please adapt them to your needs.
+    ## Make sure to constraint the rules to the current service.
+     - alert: RedisDown
+       expr: redis_up{service="{{ template "prometheus-redis-exporter.fullname" . }}"} == 0
+       for: 2m
+       labels:
+         severity: error
+       annotations:
+         summary: Redis instance {{ "{{ $labels.instance }}" }} down
+         description: Redis instance {{ "{{ $labels.instance }}" }} is down.
+     - alert: RedisMemoryHigh
+       expr: >
+          redis_memory_used_bytes{service="{{ template "prometheus-redis-exporter.fullname" . }}"} * 100
+          /
+          redis_memory_max_bytes{service="{{ template "prometheus-redis-exporter.fullname" . }}"}
+          > 90 <= 100
+       for: 2m
+       labels:
+         severity: error
+       annotations:
+         summary: Redis instance {{ "{{ $labels.instance }}" }} is using too much memory
+         description: |
+            Redis instance {{ "{{ $labels.instance }}" }} is using {{ "{{ $value }}" }}% of its available memory.
+
+auth:
+  # Use password authentication
+  enabled: true
+  # Use existing secret (ignores redisPassword)
+  secret:
+    name: "redis"
+    key: "redis-password"
+

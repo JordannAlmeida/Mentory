@@ -94,4 +94,8 @@ Depois iremos editar neste arquivo serviceMonitor->labels adicionando "release: 
 helm install postgres-exporter prometheus-community/prometheus-postgres-exporter -f prometheus-exporter-postgress-values.yaml
 ```
 
-## TODO: colocar experter do redis
+O mesmo processo foi feito com o values do exporter do redis, deixando apenas as alteracoes adequadas. Rodando:
+
+```console
+helm install redis-exporter prometheus-community/prometheus-redis-exporter -f prometheus-redis-exporter-values.yaml
+```
