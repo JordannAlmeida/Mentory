@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IAntiFraudCreditCardService, AntiFraudCreditCardService>();
 builder.Services.AddGrpc();
+builder.Services.AddLogging();
 //builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();

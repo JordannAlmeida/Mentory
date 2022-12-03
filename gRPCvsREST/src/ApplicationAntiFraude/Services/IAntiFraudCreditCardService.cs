@@ -5,6 +5,6 @@ namespace ApplicationAntiFraud.Services
 {
     public interface IAntiFraudCreditCardService
     {
-        Task<AntiFraudCreditCard> ValidateAntiFraud(CreditCardAntifraudRequest credit);
+        Task<AntiFraudCreditCard> ValidateAntiFraud<T>(T credit);
     }
 }

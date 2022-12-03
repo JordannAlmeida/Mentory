@@ -3,6 +3,7 @@ using Domain.dtos;
 using AutoMapper;
 using APIpayments.REST.Services;
 using Microsoft.AspNetCore.Mvc;
+using Domain.httpModels.proto;
 
 namespace APIpayments.REST.Controllers
 {
@@ -26,6 +27,16 @@ namespace APIpayments.REST.Controllers
         {
             var creditCardModel = _mapper.Map<CreditCardAntifraudRequest>(creditCard);
             var response = await _paymentService.DoPaymentByCreditCardAsync(creditCardModel);
+            return response;
+        }
+
+        [HttpPost]
+        [Route("creditCardRPC")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaymentCreditCardResponse))]
+        public async Task<PaymentCreditCardResponse> DoPaymentByCreditCardRPC([FromBody] CreditCardDTO creditCard)
+        {
+            var creditCardModel = _mapper.Map<CreditCardGRPC>(creditCard);
+            var response = await _paymentService.DoPaymentByCreditCardGRPC(creditCardModel);
             return response;
         }
     }

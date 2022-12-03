@@ -18,7 +18,8 @@ message CreditCardGRPC {
   double CreditCardAmoun = 2;
   google.protobuf.Timestamp Validate = 3;
   string Cvv = 4;
-  repeated double Coordinates = 5;
+  double Longitude = 5;
+  double Latitude = 10;
   string NameOwner = 6;
   string CodeBank = 7;
   google.protobuf.Timestamp PaymentDate = 8;

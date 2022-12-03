@@ -2,6 +2,7 @@
 using ApplicationAntiFraud.Services;
 using AutoMapper;
 using Domain.httpModels.rest;
+using Grpc.Core;
 
 namespace APIantifraude.gRPC.Services
 {
@@ -16,10 +17,9 @@ namespace APIantifraude.gRPC.Services
             _mapper = mapper;
         }
 
-        public async Task<AntiFraudResponseGRPC> CallValidateAntiFraudCreditCard(CreditCardGRPC creditCardGRPC)
+        override public async Task<AntiFraudResponseGRPC> CallValidateAntiFraudCreditCard(CreditCardGRPC creditCardGRPC, ServerCallContext context)
         {
-            var creditCard = _mapper.Map<CreditCardAntifraudRequest>(creditCardGRPC);
-            var resultService = await _antiFraudCreditCardService.ValidateAntiFraud(creditCard);
+            var resultService = await _antiFraudCreditCardService.ValidateAntiFraud(creditCardGRPC);
             return _mapper.Map<AntiFraudResponseGRPC>(resultService);
         }
     }

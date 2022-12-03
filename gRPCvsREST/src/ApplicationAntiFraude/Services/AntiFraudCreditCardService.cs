@@ -1,19 +1,21 @@
 ﻿using Domain.Models;
 using Domain.httpModels.rest;
+using Domain.httpModels.proto;
 
 namespace ApplicationAntiFraud.Services
 {
     public class AntiFraudCreditCardService : IAntiFraudCreditCardService
     {
 
-        public async Task<AntiFraudCreditCard> ValidateAntiFraud(CreditCardAntifraudRequest credit)
+        public async Task<AntiFraudCreditCard> ValidateAntiFraud<T>(T credit)
         {
             await Task.Delay(500);
             return GetAntiFraudAvaliation(credit);
         }
 
-        private static AntiFraudCreditCard GetAntiFraudAvaliation(CreditCardAntifraudRequest credit)
+        private static AntiFraudCreditCard GetAntiFraudAvaliation<T>(T credit)
         {
+            // credit doesn't used, we're simulate a antifraud process
             AntiFraudCreditCard antiFraudCreditCardResponse =
                 new()
                 {

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\antifraudpayment.proto" GrpcServices="Server" ProtoCompile="true" />
+    <Protobuf Include="Protos\antifraudpayment.proto" GrpcServices="Both" ProtoCompile="true" />
   </ItemGroup>
 
 </Project>
