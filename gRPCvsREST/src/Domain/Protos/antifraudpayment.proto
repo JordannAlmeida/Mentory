@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Domain.httpModels.proto";
+
+package Domain.httpModels.proto;
+
+// The greeting service definition.
+service AntiFraudPayment {
+  // Sends a greeting
+  rpc CallValidateAntiFraudCreditCard (CreditCardGRPC) returns (AntiFraudResponseGRPC);
+}
+
+// The request message containing the user's name.
+message CreditCardGRPC {
+  string CreditCardNumber = 1;
+  double CreditCardAmoun = 2;
+  google.protobuf.Timestamp Validate = 3;
+  string Cvv = 4;
+  repeated double Coordinates = 5;
+  string NameOwner = 6;
+  string CodeBank = 7;
+  google.protobuf.Timestamp PaymentDate = 8;
+  double CreditCardLimit = 9;
+}
+
+// The response message containing the greetings.
+message AntiFraudResponseGRPC {
+  string Message = 1;
+  bool Aproved = 2;
+  float PercentageOfRiskGatewayA = 3;
+  float PercentageOfRiskGatewayB = 4;
+  float PercentageOfRiskGatewayC = 5;
+  float PercentageOfRiskGatewayD = 6;
+  float PercentageOfRiskGatewayE = 7; 
+}
