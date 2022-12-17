@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  apiantifraudrest:
+    image: apiantifraudrest:latest
+    build:
+      context: 'src/dotnet'
+      dockerfile: DockerfileApiAntiFraudRest
+      args:
+        progress: plain
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 8084:80
+  
+  apiantifraudgrpc:
+    image: apiantifraudgrpc:latest
+    build:
+      context: 'src/dotnet'
+      dockerfile: DockerfileApiAntiFraudRpc
+      args:
+        progress: plain
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 8088:443
+
+  apipagamentosrest:
+    image: apipagamentosrest:latest
+    build:
+      context: 'src/dotnet'
+      dockerfile: DockerfileApiPagamentos
+      args:
+        progress: plain
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 8082:80

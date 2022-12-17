@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
 using Domain.httpModels.rest;
 
-namespace ApplicationAntiFraud.Services
+namespace ApplicationAntiFraude.Services
 {
     public interface IAntiFraudCreditCardService
     {

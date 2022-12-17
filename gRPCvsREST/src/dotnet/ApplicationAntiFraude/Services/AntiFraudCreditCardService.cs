@@ -2,7 +2,7 @@
 using Domain.httpModels.rest;
 using Domain.httpModels.proto;
 
-namespace ApplicationAntiFraud.Services
+namespace ApplicationAntiFraude.Services
 {
     public class AntiFraudCreditCardService : IAntiFraudCreditCardService
     {

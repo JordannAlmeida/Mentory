@@ -1,5 +1,5 @@
 using APIantifraude.gRPC.Services;
-using ApplicationAntiFraud.Services;
+using ApplicationAntiFraude.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

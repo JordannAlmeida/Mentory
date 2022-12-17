@@ -3,9 +3,9 @@ using Domain.httpModels.rest;
 using Domain.Models;
 using Domain.dtos;
 using AutoMapper;
-using ApplicationAntiFraud.Services;
+using ApplicationAntiFraude.Services;
 
-namespace ApplicationAntiFraud.REST.Controllers
+namespace APIantiFraud.REST.Controllers
 {
     [ApiController]
     [Route("payment/")]

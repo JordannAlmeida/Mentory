@@ -2,7 +2,7 @@
 using Domain.Models;
 using Domain.dtos;
 
-namespace APIpayments.REST.Maps
+namespace APIantiFraud.REST.Maps
 {
     public class AutomapperConfig : Profile
     {

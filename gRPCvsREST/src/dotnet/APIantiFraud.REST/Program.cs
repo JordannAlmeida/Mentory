@@ -1,4 +1,4 @@
-using ApplicationAntiFraud.Services;
+using ApplicationAntiFraude.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

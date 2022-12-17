@@ -1,8 +1,8 @@
 ﻿using Domain.httpModels.proto;
-using ApplicationAntiFraud.Services;
 using AutoMapper;
 using Domain.httpModels.rest;
 using Grpc.Core;
+using ApplicationAntiFraude.Services;
 
 namespace APIantifraude.gRPC.Services
 {

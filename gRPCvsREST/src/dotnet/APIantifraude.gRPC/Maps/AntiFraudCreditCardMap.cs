@@ -3,7 +3,7 @@ using Domain.Models;
 using Domain.httpModels.proto;
 using Domain.httpModels.rest;
 
-namespace APIpayments.REST.Maps
+namespace APIantifraude.gRPC.Maps
 {
     public class AutomapperConfig : Profile
     {
