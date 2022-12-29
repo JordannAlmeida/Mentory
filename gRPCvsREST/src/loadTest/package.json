@@ -1,0 +1,11 @@
+{
+    "name": "k6-load-test-rest-vs-rpc",
+    "version": "1.0.0",
+    "description": "Load test using k6 and Node.js to test performance of examples using REST and gRPC",
+    "main": "script.js",
+    "scripts": {
+        "test": "k6 run script.js"
+    },
+    "author": "Jordann Almeida with Chat GPT",
+    "license": "MIT"
+}
